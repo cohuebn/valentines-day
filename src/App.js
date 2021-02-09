@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { Component } from 'react'
+import './App.scss';
+import { Landing } from './Landing';
+import { NameQuestion } from './NameQuestion';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+    pageMap = {
+        'landing': <Landing onNextPageClick={() => this.changePage('name-question')}></Landing>,
+        'name-question': <NameQuestion></NameQuestion>
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = {page: 'landing'};
+    }
+
+    changePage(pageName) {
+        this.setState({page: pageName})
+    }
+
+    render() {
+        return (
+            <div className="app">
+                {this.pageMap[this.state['page']]}
+            </div>
+        );
+    }
 }
-
-export default App;
