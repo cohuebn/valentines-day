@@ -1,28 +1,22 @@
-import { Component } from 'react'
+import { useSelector } from 'react-redux';
 import './App.scss';
 import { Landing } from './Landing';
-import { NameQuestion } from './NameQuestion';
+import { Question } from './Question';
+import { Result } from './Result';
 
-export default class App extends Component {
-    pageMap = {
-        'landing': <Landing onNextPageClick={() => this.changePage('name-question')}></Landing>,
-        'name-question': <NameQuestion></NameQuestion>
+export default function App() {
+    const quiz = useSelector(state => state.quiz);
+    const getCurrentPage = () => {
+        if (!quiz.started)
+            return <Landing></Landing>;
+        if (!quiz.currentQuestion)
+            return <Result></Result>;
+        return <Question></Question>;
     }
 
-    constructor(props) {
-        super(props);
-        this.state = {page: 'landing'};
-    }
-
-    changePage(pageName) {
-        this.setState({page: pageName})
-    }
-
-    render() {
-        return (
-            <div className="app">
-                {this.pageMap[this.state['page']]}
-            </div>
-        );
-    }
+    return (
+        <div className="app">
+            {getCurrentPage()}
+        </div>
+    );
 }
