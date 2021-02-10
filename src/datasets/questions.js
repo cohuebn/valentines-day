@@ -10,19 +10,20 @@ const colorQuestion = {
     }
 }
 
-const moodQuestion = {
-    question: 'What kind of card do you want?',
+const cesilieThemeQuestion = {
+    question: 'What theme do you want?',
     choices: {
         'Dancing': {},
         'Singing': {},
-        'Words of affirmation': {}
+        'Animals': {},
+        'Romance': {}
     }
 }
 
 export const nameQuestion = {
     question: 'Who are you?',
     choices: {
-        'Cesilie': { nextQuestion: 'mood' },
+        'Cesilie': { nextQuestion: 'theme' },
         'Jaxon': { nextQuestion: 'color' },
         'Levi': { nextQuestion: 'color' },
         'Maverick': {nextQuestion: 'color'},
@@ -31,6 +32,6 @@ export const nameQuestion = {
 
 export const questions = {
     'name': nameQuestion,
-    'mood': moodQuestion,
+    'theme': cesilieThemeQuestion,
     'color': colorQuestion
 }

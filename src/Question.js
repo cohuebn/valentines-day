@@ -1,6 +1,8 @@
 import {useSelector, useDispatch} from 'react-redux';
-import {QUESTION_ANSWERED} from './actions/action-types';
+import {CHOICE_SELECTED, QUESTION_ANSWERED} from './actions/action-types';
 import {Button} from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
+import { PlayArrow } from '@material-ui/icons';
 import './Question.scss';
 
 export function Question() {
@@ -8,9 +10,10 @@ export function Question() {
 
     const isSelected = choice => quiz.selectedChoice == choice;
     const dispatch = useDispatch();
-    const setSelected = choice => dispatch({type: QUESTION_ANSWERED, payload: choice});
+    const setSelected = choice => dispatch({type: CHOICE_SELECTED, payload: choice});
+    const answerQuestion = () => dispatch({type: QUESTION_ANSWERED});
 
-    const questionElements = Object.keys(quiz.currentQuestion.choices).map(choice => {
+    const choiceElements = Object.keys(quiz.currentQuestion.choices).map(choice => {
         return (
             <Button variant="outlined" value={choice} key={choice} onClick={() => setSelected(choice)} className={isSelected(choice)? 'selected' : ''}>
                 {choice}
@@ -20,7 +23,14 @@ export function Question() {
     return (
         <main id="question">
             <h1>{quiz.currentQuestion.question}</h1>
-            {questionElements}
+            <div id="choices">
+                {choiceElements}
+            </div>
+            <footer>
+                <IconButton aria-label="Submit answer" onClick={() => answerQuestion()}>
+                    <PlayArrow />
+                </IconButton>
+            </footer>
         </main>
     )
 }
