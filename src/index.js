@@ -12,8 +12,9 @@ const initialStore = {
     quiz: {
         started: false,
         currentQuestion: {...nameQuestion},
+        currentQuestionKey: 'name',
         selectedChoice: null,
-        answers: []
+        answers: {}
     }
 };
 const store = createStore(rootReducer, initialStore, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
